@@ -94,7 +94,7 @@ server <- function(input, output) {
     frho_c <- reactive({
       
       if(input$ICCornot=="ICC"){
-      rho_c = input$ICCX * input$ICCY * input$rho_b + (1-input$ICCX) * (1-input$ICCY) * input$rho_w
+      rho_c = sqrt(input$ICCX) * sqrt(input$ICCY) * input$rho_b + sqrt(1-input$ICCX) * sqrt(1-input$ICCY) * input$rho_w
       return(rho_c)
       }
       if(input$ICCornot=="Std. Dev."){
