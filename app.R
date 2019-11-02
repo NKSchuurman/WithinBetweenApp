@@ -67,7 +67,7 @@ ui <- fluidPage(
                column(2,
                       wellPanel(
                         
-                        radioButtons(inputId="dist_ICCornot", label=NULL, choices=list("ICC", "Variance"),inline=TRUE), 
+                        radioButtons(inputId="dist_ICCornot", label=NULL, choices=list("Variance", "ICC"),inline=TRUE), 
                         
                        
                         conditionalPanel(
@@ -291,15 +291,15 @@ server <- function(input, output) {
 ####dist####
   #Within plot 
   output$dist_plot_w <- renderPlot({
-    plot(fdist_x_avwithin(), fdist_hx_avwithin(), type="l", xlab="", ylab="",main="",xlim= fdist_xlim(),ylim= fdist_ylim(), lwd=6, bg='transparent', col=col_w)
+    plot(fdist_x_avwithin(), fdist_hx_avwithin(), type="l", xlab="", ylab="",xlim= fdist_xlim(),ylim= fdist_ylim(), lwd=6, bg='transparent', col=col_w, main=paste("Within Variance =", fdist_var_w()))
   })
   #Between plot
   output$dist_plot_b <- renderPlot({
-  plot(fdist_x_bp(), fdist_hx_bp(), type="l", xlab="", ylab="", main="",xlim= fdist_xlim(),ylim= fdist_ylim(), lwd=6, bg='transparent',col=col_b)
+  plot(fdist_x_bp(), fdist_hx_bp(), type="l", xlab="", ylab="",xlim= fdist_xlim(),ylim= fdist_ylim(), lwd=6, bg='transparent',col=col_b, main=paste("Between Variance =", fdist_var_b()))
   })
   #Cross-sectional plot
   output$dist_plot_c <- renderPlot({
-  plot(fdist_x_grand(), fdist_hx_grand(), type="l", xlab="", ylab="", main="",xlim= fdist_xlim(),ylim= fdist_ylim(), lwd=6, bg='transparent',col=col_c[fdistcol_c_select()])
+  plot(fdist_x_grand(), fdist_hx_grand(), type="l", xlab="", ylab="", xlim= fdist_xlim(),ylim= fdist_ylim(), lwd=6, bg='transparent',col=col_c[fdistcol_c_select()], main=paste("Cross-sectional Variance =", fdist_grand_var()))
   })
   
   
