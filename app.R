@@ -169,7 +169,6 @@ server <- function(input, output) {
 ###general user input independent operations###
 #############################################  
   library(MASS)
-  library(qgraph)
   col_b = "#FF1545"
   col_w = "#00CFFF"
   col_c = c("#9807FF", "#9F01B3", "#4C18EA")
