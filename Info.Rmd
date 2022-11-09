@@ -1,0 +1,18 @@
+---
+title: "Info"
+output: html_fragment
+---
+
+## About the App
+This app illustrates for three analyses what the consequences are if so-called within-person variance and between-person variance are not distinguished from each other during such an analysis. The three analyses can be found in separate tabs at the top of this app: "Pairwise Correlations", "Univariate Normal Densities", and "Cross-lagged Networks". 
+
+For general info on these tabs/analyses, see below. For details on within-subject variance, between-subject variance, on what the within/between problem is exactly, and how this plays out in the three specific analyses, refer to the in preparation manuscript that accompanies this app: "A "Within/Between Problem" Primer: *About the problem of (not) separating within-subject variance and between-subject variance in psychology*" by N. K. Schuurman (2022).
+
+### Pairwise Correlations Tab
+This section of the app illustrates the "within/between problem" for Pearson correlations between two variables (labeled X and Y in the app). In the middle of the pairwise correlations page, you see three scatter plots depicting the pairwise correlations between variables X and Y, at respectively the between-subject level, the within-subject level, and for observations from a cross-sectional design where between-subject and within-subject variance have not been distinguished from each other. On the left of the plots, you'll find options that you can change - such as the value of the within-person correlation - that will change the resulting scatter plots. On the right of the plots, you will find some instructions on what the options and results mean (for more information/details, refer to the accompanying manuscript).
+
+### Univariate Normal Densities Tab
+This section of the app illustrates the "within/between problem" for the density of a single (normally distributed) variable. In the middle of the Univariate Normal Densities page, you see three density plots for a single variable, at respectively its between-subject level, its within-subject level, and for observations from a cross-sectional design where between-subject and within-subject variance have not been distinguished from each other. On the left of the plots, you'll find options that you can change that will alter the resulting densities. On the right of the plots, you will find some instructions on what the options and results mean (for more information/details, refer to the accompanying manuscript).
+
+### Cross-lagged Networks Tab
+This section of the app illustrates the "within/between problem" for a multivariate setting, where multiple variables affect each other over time, according to a so-called 'cross-lagged model'. This could be a cross-lagged panel model, a vector autoregressive model, or a dynamic network model. In the middle of the Cross-lagged Networks page, you see four network plots of four variables. The different networks represent the cross-lagged model, the within-level correlations, the between-level correlations, and the cross-sectional correlations respectively. On the left of the plots, you'll find options that you can change that will alter the resulting networks. On the right of the plots, you will find some instructions on what the options and results mean (for more information/details, refer to the accompanying manuscript).

@@ -1,0 +1,49 @@
+---
+title: "Info Distributions"
+output: html_fragment
+---
+## Manual
+For general information on this shiny app, click the right-most tab 'Info' at the top of this app. 
+
+## Options 
+
+- **Variance or ICC:** Choose to manipulate the variances or intra-class correlations of the variable.
+
+***Variance option chosen:***
+- **Within-subject Variance** Change the values of the within-subject variance for the variable. 
+
+A within-subject variance is the variance taken over the repeated measures of one subject. Here, we assume that this variance is the same for all subjects (or, you can consider this value as the average within-subject variance, the average taken over all possible subjects - this would give the same results here). 
+
+- **Between-subject Variance**
+Change the values of the between-subject variance for the variable. 
+
+Imagine each subject has their own mean for the variable (e.g., if we were to track each subjects scores over time). The between-subject variance is the variance of the means of different subjects.
+
+***ICC option chosen:***
+- **ICC of X; ICC of Y:** Change the intra-class correlation of the variable. 
+
+The ICC is the the proportion of between-subject variance to the total variance of the variable. The larger the ICC, the larger the between-subject variance, and the smaller the within-subject variance.
+
+
+
+
+## Results
+For simplicitly, all distributions are centered around a mean of zero.
+
+### Between-subject Density (top-left) 
+The centered, normal density of the means (expected values) of different subjects for the variable of interest. That is, if we were to track the scores of different subject over time for the variable, then the means of those scores for each subjects form the basis of this normal distribution.
+
+At the top of the distribution the true value of the between-subject variance is displayed (chosen by the user).
+
+### Within-subject Density (top-right) 
+The centered, normal density of a subject's scores on the variable at different points in time (i.e., repeated measures). We assume here for simplicity that the within-subject density is equal for all subjects. (Or, you can consider this as the within-subject distribution of an average subject - this would give the same results here). 
+
+At the top of the density the true value of the within-subject variance is displayed (chosen by the user).
+
+### Cross-sectional Density (bottom)
+The centered, normal distribution that would result for the scores of different subjects at a specific point in time (for example, time point 25), given the specified within-subject and between-subject densities. 
+
+At the top of the density the true value of the cross-sectional variance is displayed, equal to the sum of the within-subject and between-subject variance. 
+
+
+

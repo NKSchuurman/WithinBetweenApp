@@ -1,11 +1,11 @@
 library(shiny)
-
+library("markdown")
 #########################################################
 ########################################################
 # Define UI for Within-Between app ----
 ui <- fluidPage(
   
-  navbarPage("Within vs Between vs Cross-sectional",
+  navbarPage("A Within/Between Problem App",
     tabPanel("Pairwise Correlations",
             
     #titlePanel("Within vs Between vs Cross-sectional"),
@@ -15,26 +15,26 @@ ui <- fluidPage(
        column(2,
              wellPanel(
     
-       radioButtons(inputId="ICCornot", label=NULL, choices=list("ICC", "Std. Dev."),inline=TRUE), 
+       radioButtons(inputId="ICCornot", label=NULL, choices=list("ICC", "Standard deviation"),inline=TRUE), 
     
-       sliderInput(inputId="rho_w", label="within rho", min=-1, max=1, value=-0.5,step=.1),
-       sliderInput(inputId="rho_b", label="between rho", min=-1, max=1, value=0.5,step=.1),
+       sliderInput(inputId="rho_w", label="Within-subject correlation", min=-1, max=1, value=-0.5,step=.1),
+       sliderInput(inputId="rho_b", label="Between-subject correlation", min=-1, max=1, value=0.5,step=.1),
     
         conditionalPanel(
          condition = "input.ICCornot == 'ICC'",
        # Input: ICCs
-         sliderInput(inputId="ICCX", label="ICC X", min=0, max=1, value=0.5,step=.1),
-         sliderInput(inputId="ICCY", label="ICC Y", min=0, max=1, value=0.5,step=.1)
+         sliderInput(inputId="ICCX", label="ICC of X", min=0.01, max=.99, value=0.5,step=.1),
+         sliderInput(inputId="ICCY", label="ICC of Y", min=0.01, max=.99, value=0.5,step=.1)
          ),
     
        conditionalPanel(
-         condition = "input.ICCornot == 'Std. Dev.'",
+         condition = "input.ICCornot == 'Standard deviation'",
           # Input: Between sds
-          sliderInput(inputId="sdX_b", label="between sd X", min=0, max=10, value=1,step=.1),
-          sliderInput(inputId="sdY_b", label="between sd Y", min=0, max=10, value=1,step=.1),
+          sliderInput(inputId="sdX_b", label="Between-subject sd of X", min=0, max=10, value=1,step=.1),
+          sliderInput(inputId="sdY_b", label="Between-subject sd of Y", min=0, max=10, value=1,step=.1),
          #Input: Within sds
-         sliderInput(inputId="sdX_w", label="within sd X", min=0, max=10, value=1,step=.1),
-         sliderInput(inputId="sdY_w", label="within sd Y", min=0, max=10, value=1,step=.1)
+         sliderInput(inputId="sdX_w", label="Within-subject sd of X", min=0, max=10, value=1,step=.1),
+         sliderInput(inputId="sdY_w", label="Within-subject sd of Y", min=0, max=10, value=1,step=.1)
         ),
    
        #Input: Plotting Options
@@ -46,21 +46,27 @@ ui <- fluidPage(
     # for displaying outputs 
      column(10,
             fluidRow(
-              column(6, 
+              column(4, 
                      plotOutput("plot_b"),
                      plotOutput("plot_c")
                       ),
            
-             column(6,
-                      plotOutput("plot_w"))
+             column(4,
+                      plotOutput("plot_w")
+                    ),
+             
+             column(4,
+               sidebarPanel(
+                 style = "height: 90vh; overflow-y: auto;",
+                 includeMarkdown("Info_cor.Rmd"), width = 12)
+               )
  
- 
-           )
+            )
        )
       )
    ),
 
-    tabPanel("Univariate Distributions",
+    tabPanel("Univariate Normal Densities",
     
              fluidRow(
                
@@ -78,8 +84,8 @@ ui <- fluidPage(
                         
                         conditionalPanel(
                           condition = "input.dist_ICCornot == 'Variance'",
-                          sliderInput(inputId="dist_var_w", label="Average Within-Person Variance", min=0, max=10, value=1,step=.5),
-                          sliderInput(inputId="dist_var_b", label="Between Person Variance", min=0, max=10, value=5,step=.5)
+                          sliderInput(inputId="dist_var_w", label="Average Within-subject variance", min=0, max=10, value=1,step=.5),
+                          sliderInput(inputId="dist_var_b", label="Between-subject variance", min=0, max=10, value=5,step=.5)
                         )
                         
                        
@@ -89,21 +95,25 @@ ui <- fluidPage(
              #   for displaying outputs 
               column(10,
                      fluidRow(
-                        column(6, 
+                        column(4, 
                                plotOutput("dist_plot_b"),
                               plotOutput("dist_plot_c")
                         ),
                         
-                       column(6,
-                               plotOutput("dist_plot_w"))
+                       column(4,
+                               plotOutput("dist_plot_w")),
                         
-                        
+                       column(4,
+                              sidebarPanel(
+                                style = "height: 90vh; overflow-y: auto;",
+                                includeMarkdown("Info_dist.Rmd"), width = 12)
+                       )
                      )
                )
           )
     ),         
     
-    tabPanel("Dynamic (VAR) Networks",
+    tabPanel("Cross-lagged Networks",
    
    fluidRow(
      
@@ -111,54 +121,53 @@ ui <- fluidPage(
             wellPanel(
               radioButtons(inputId="netcortype", label="Type of correlations", choices=list("Pairwise", "Partial"),inline=TRUE), 
               
-              radioButtons(inputId="net_nvars", label="Number of nodes", choices=list(3, 5),inline=TRUE), 
+              sliderInput(inputId="net4_ICC1", label="ICC of Stress", min=0.01, max=.99, value=0.5,step=.1),
+              sliderInput(inputId="net4_ICC2", label="ICC of Caffeine", min=0.01, max=.99, value=0.5,step=.1),
+              sliderInput(inputId="net4_ICC3", label="ICC of Performance", min=0.01, max=.99, value=0.5,step=.1),
+              sliderInput(inputId="net4_ICC4", label="ICC of Sleep", min=0.01, max=.99, value=0.5,step=.1),
               
-              
-              conditionalPanel(
-                condition = "input.net_nvars == 3",
-                # Input: ICCs
-                radioButtons(inputId="net3_lagged", label="Lagged effects matrix", choices=list("a", "b", "c"),inline=TRUE),
-                radioButtons(inputId="net3_res", label="Contemporaneous residual covariance matrix", choices=list("a", "b", "c"),inline=TRUE),
-                radioButtons(inputId="net3_between", label="Between person correlation matrix", choices=list("a", "b", "c"),inline=TRUE),
-                sliderInput(inputId="net3_ICC1", label="ICC1", min=0, max=1, value=0.5,step=.1),
-                sliderInput(inputId="net3_ICC2", label="ICC2", min=0, max=1, value=0.5,step=.1),
-                sliderInput(inputId="net3_ICC3", label="ICC3", min=0, max=1, value=0.5,step=.1)
-              ),
-              
-              conditionalPanel(
-                condition = "input.net_nvars == 5",
-                # Input: ICCs
-                radioButtons(inputId="net5_lagged", label="Lagged effects matrix", choices=list("a", "b","c"),inline=TRUE),
-                radioButtons(inputId="net5_res", label="Contemporaneous residual covariance matrix", choices=list("a", "b","c"),inline=TRUE),
-                radioButtons(inputId="net5_between", label="Between person correlation matrix", choices=list("a", "b", "c"),inline=TRUE),
-                sliderInput(inputId="net5_ICC1", label="ICC1", min=0, max=1, value=0.5,step=.1),
-                sliderInput(inputId="net5_ICC2", label="ICC2", min=0, max=1, value=0.5,step=.1),
-                sliderInput(inputId="net5_ICC3", label="ICC3", min=0, max=1, value=0.5,step=.1),
-                sliderInput(inputId="net5_ICC4", label="ICC4", min=0, max=1, value=0.5,step=.1),
-                sliderInput(inputId="net5_ICC5", label="ICC5", min=0, max=1, value=0.5,step=.1)
-              )
-              
-              
-            )       
+              )       
      ),
      
       #  for displaying outputs 
      column(10,
             fluidRow(
-              column(6, 
+              column(4, 
                      plotOutput("netstdreg_wp"),
                      plotOutput("netpw_bp")
               ),
             
-              column(6,
+              column(4,
                     plotOutput("netpw_wp"),
-                    plotOutput("netpw_c"))
+                    plotOutput("netpw_c")
+              ), 
+            
+            column(4,
+                   sidebarPanel(
+                     style = "height: 90vh; overflow-y: auto;",
+                     includeMarkdown("Info_net.Rmd"), width = 12)
             )
-     
+          )
      )   
    )
+  ),
+  
+  tabPanel("Info",
+           
+           fluidRow(
+             
+              column(8,
+                  includeMarkdown("Info.Rmd")
+              ),        
+                      
+              column(4,
+                  sidebarPanel(
+                          # style = "height: 90vh; overflow-y: auto;",
+                         includeMarkdown("Info_side.Rmd"), width = 12)
+              )
+            )
+  )   
   )
- )
 )
 
 ################################################################
@@ -181,10 +190,59 @@ server <- function(input, output) {
   ####netw####
   library(qgraph)
   
+  fnetne=4
+  
+  #Between person correlations
+  fnet_cormat_bp <- matrix(c(
+    #stress caff perf sleepqual
+    1,.2, .1,-.3,
+    .2,1,-.15,-.4,
+    .1,-.15,1,.3,
+    -.3,-.4,.3,1
+  ),4,4,byrow=TRUE)
+  
+  #within lagged coefficients unstandardized
+  fnetH=matrix(
+    #stress caff  perf sleepqual
+    c(0.6,0,-.2,0,
+      0,0.5,-.1,0,
+     .1,.1,0.8,.2,
+     -.2,-.1,.1,0.5),4,4,byrow=FALSE)
+  
+  fnetResCov=matrix(c(0.5,0.0,0.0,0.0,
+                      0.0,0.5,0.0,0.0,
+                      0.0,0.0,0.5,0.0,
+                      0.0,0.0,0.0,0.5
+                    ),4,4,byrow=T)
+  
+    #within covariance matrix
+    Id =diag(fnetne*fnetne)
+    covmat_wp=array(NA,c(fnetne,fnetne))
+    cvvec_wp= solve(Id-( fnetH%x% fnetH)) %*% c(fnetResCov) ###calculate the covmatrix
+    cvmat_wp= matrix(cvvec_wp,fnetne,fnetne)
+    fnet_covmat_wp= cvmat_wp ##for saving
+   
+    fnet_cormat_wp= cov2cor(fnet_covmat_wp) ##for saving
+   
+    fnet_stH<-fnetH
+    for (i in 1:fnetne){
+        fnet_stH[i,]<-fnet_stH[i,]/sqrt(fnet_covmat_wp[i,i])
+        fnet_stH[,i]<-fnet_stH[,i]*sqrt(fnet_covmat_wp[i,i])
+    }
+    
+    ###partial correlations results##
+    #precision matrices within
+   premat_wp <- solve(fnet_covmat_wp)
+   partial_wp <- -cov2cor(premat_wp)
+   diag(partial_wp) <- 1
+   fnet_partial_wp <- partial_wp
+   
+      
+  
 ########Reactive functions##########
 ###################################  
   
-  ######for when input$ICCornot=="Std. Dev.######
+  ######for when input$ICCornot=="Standard deviation######
   
     #Calculate grand standard deviation for X
  fsdX <- reactive({
@@ -211,7 +269,7 @@ server <- function(input, output) {
       rho_c = sqrt(input$ICCX) * sqrt(input$ICCY) * input$rho_b + sqrt(1-input$ICCX) * sqrt(1-input$ICCY) * input$rho_w
       return(rho_c)
       }
-      if(input$ICCornot=="Std. Dev."){
+      if(input$ICCornot=="Standard deviation"){
         rho_c = input$sdX_b/fsdX() * input$sdY_b/fsdY() * input$rho_b + input$sdX_w/fsdX() * input$sdY_w/fsdY() * input$rho_w
         return(rho_c)
       }
@@ -328,264 +386,27 @@ server <- function(input, output) {
  
  ###netw####
 
- 
- fnetne <- reactive({
-   
-   if(input$net_nvars == 3){
-    ne=3
-     return(ne)
-   }
-   if(input$net_nvars == 5){
-  ne=5
-     return(ne)
-   }
-   
- })
- 
- fnetny <- reactive({
-   ny=fnetne()
-   return(ny)
- })
- 
- fnetH <- reactive({
-   
-   if(input$net_nvars == 5)
-     { 
-     if(input$net5_lagged == 'c'){
-       H=matrix(c(0.5,0.25,0.25,0.25,0.0,
-                  0.0,0.5,0.0,0.0,0.0,
-                  0.0,0.0,0.4,0.0,-.2,
-                  0,0.0,0.0,0.5,0.0,
-                  -.2,0.0,0.0,0.0,0.4),fnetne(),fnetne(),byrow=TRUE)
-     return(H)
-     }
-     if(input$net5_lagged == 'a'){
-       H=matrix(c(0.7,0,0,0,0,
-                  0,0.5,0,0,0,
-                  0,0,0.5,0,0,
-                  .3,.3,.3,0.5,.3,
-                  0,0,0,0,0.6),fnetne(),fnetne(),byrow=TRUE)
-       return(H)
-     }
-     if(input$net5_lagged == 'b'){
-       H=matrix(c(0.7,-.3,-.15,0,-.1,
-                   -.1,0.5,0,-.05,-.15,
-                   0,-.2,0.5,0,0,
-                   0,0,0,0.5,-.1,
-                   0,0,0,-.2,0.6),fnetne(),fnetne(),byrow=TRUE)
-       return(H)
-     }
-   }
- 
- if(input$net_nvars == 3)
- { 
-   if(input$net3_lagged == 'c'){
-     H=array(NA,c(fnetne(),fnetne()))
-     H[1,1]= .5 
-     H[1,2]= -.2 
-     H[1,3]= 0
-     H[2,1]= -.1
-     H[2,2]= .3 
-     H[2,3]= 0.1
-     H[3,1]= -.1
-     H[3,2]= 0.06
-     H[3,3]= 0.4
-     return(H)
-   }
-   if(input$net3_lagged == 'a'){
-     H=array(NA,c(fnetne(),fnetne()))
-     H[1,1]= .35
-     H[1,2]= .1
-     H[1,3]= .05
-     H[2,1]= .3
-     H[2,2]= .6 
-     H[2,3]= 0.1
-     H[3,1]= .2
-     H[3,2]= .2
-     H[3,3]= 0.5
-     return(H)
-   }
-   if(input$net3_lagged == 'b'){
-     H=array(NA,c(fnetne(),fnetne()))
-     H[1,1]= .4
-     H[1,2]= -.05
-     H[1,3]= -.2
-     H[2,1]= -.3
-     H[2,2]= .5
-     H[2,3]= -.05
-     H[3,1]= -.1
-     H[3,2]= -.2
-     H[3,3]= 0.55
-     return(H)
-   }
- }
-})
- 
- fnetResCov <- reactive({
-   if(input$net_nvars == 5 & input$net5_res == 'a' ){
-     ResCov=matrix(c(0.5,0.0,0.0,0.0,0.0,
-                     0.0,0.5,0.0,0.0,0.0,
-                     0.0,0.0,0.5,0.0,0.0,
-                     0.0,0.0,0.0,0.5,0.0,
-                     0.0,0.0,0.0,0.0,0.5),fnetne(),fnetne(),byrow=T)
-     return(ResCov)
-   }
-   if(input$net_nvars == 5 & input$net5_res == 'b'){
-     ResCov=matrix(c(0.5,0.1,0.1,0.1,0.1,
-                     0.1,0.5,0.1,0.1,0.1,
-                     0.1,0.1,0.5,0.1,0.1,
-                     0.1,0.1,0.1,0.5,0.1,
-                     0.1,0.1,0.1,0.1,0.5),fnetne(),fnetne(),byrow=T)
-     return(ResCov)
-   }
-   if(input$net_nvars == 5 & input$net5_res == 'c'){
-     ResCov=matrix(c(0.5,-0.1,-0.1,-0.1,-0.1,
-                     -0.1,0.5,-0.1,-0.1,-0.1,
-                     -0.1,-0.1,0.5,-0.1,-0.1,
-                     -0.1,-0.1,-0.1,0.5,-0.1,
-                     -0.1,-0.1,-0.1,-0.1,0.5),fnetne(),fnetne(),byrow=T)
-     return(ResCov)
-   }
-   if(input$net_nvars == 3 & input$net3_res == 'a' ){
-     ResCov=matrix(c(
-       .5,0,0,
-       0,.5,0,
-       0,0,.5
-       ),fnetne(),fnetne(),byrow=T)
-     return(ResCov)
-   }
-   if(input$net_nvars == 3 & input$net3_res == 'b'){
-     ResCov=matrix(c(
-       1,.1,.1,
-       .1,1,.1,
-       .1,.1,1
-     ),fnetne(),fnetne(),byrow=T)
-     return(ResCov)
-   }
-   if(input$net_nvars == 3 & input$net3_res == 'c'){
-     ResCov=matrix(c(
-       1,-.1,-.1,
-       -.1,1,-.1,
-       -.1,-.1,1
-     ),fnetne(),fnetne(),byrow=T)
-     return(ResCov)
-   }
-   
- })
- 
-
- fnetbcor <- reactive({
-   if(input$net_nvars == 5 & input$net5_between == 'a' ){
-     cormat_bp= matrix(c(
-       1,.15, 0.1,0,0,
-       .15,1,0.1,0,.3,
-       .1,.1,1,0,0,
-       0,0,0,1,.5,
-       0,.3,0,.5,1
-     ),fnetny(),fnetny(),byrow=TRUE)
-     return(cormat_bp)
-   }
-   if(input$net_nvars == 5 & input$net5_between == 'b'){
-     cormat_bp= matrix(c(
-       1,-.5, -.3,0,0,
-       -.5,1,-.1,-.2,0,
-       -.3,-.1,1,-.1,0,
-       0,-.2,-.1,1,0,
-       0,0,0,0,1
-     ),fnetny(),fnetny(),byrow=TRUE)
-     return(cormat_bp)
-   }
-   if(input$net_nvars == 5 & input$net5_between == 'c'){
-     cormat_bp= matrix(c(
-       1,-.2,.2,0,.3,
-       -.2,1,0,0,-.1,
-       .2,0,1,-.1,.2,
-       0,0,-.1,1,-.15,
-       .3,-.1,.2,-.15,1
-     ),fnetny(),fnetny(),byrow=TRUE)
-     return(cormat_bp)
-   }
-   if(input$net_nvars == 3 & input$net3_between == 'b' ){
-     cormat_bp= matrix(c(
-       1,.2, 0.1,
-       .2,1,0.1,
-       .1,.1,1
-     ),fnetny(),fnetny(),byrow=TRUE)
-     return(cormat_bp)
-   }
-   if(input$net_nvars == 3 & input$net3_between == 'c'){
-     cormat_bp= matrix(c(
-       1,-.2, -.1,
-       -.2,1,-.1,
-       -.1,-.1,1
-     ),fnetny(),fnetny(),byrow=TRUE)
-     return(cormat_bp)
-   }
-   if(input$net_nvars == 3 & input$net3_between == 'a'){
-     cormat_bp= matrix(c(
-       1,-.3, 0,
-       -.3,1,.1,
-       0,.1,1
-     ),fnetny(),fnetny(),byrow=TRUE)
-     return(cormat_bp)
-   }
- })
-   
- 
-fnet_covmat_wp <- reactive({
-  Id =diag(fnetne()*fnetne())
- covmat_wp=array(NA,c(fnetne(),fnetne()))
- cvvec_wp= solve(Id-( fnetH()%x% fnetH())) %*% c(fnetResCov()) ###calculate the covmatrix
- cvmat_wp= matrix(cvvec_wp,fnetne(),fnetne())
- covmat_wp= cvmat_wp ##for saving
- return(covmat_wp)
-})
-
-fnet_cormat_wp <- reactive({
-  cormat_wp=array(NA,c(fnetne(),fnetne()))
-  cormat_wp= cov2cor(fnet_covmat_wp()) ##for saving
-  return(cormat_wp)
-})
-
 fnet_covmat_bp <- reactive({
-  if(input$net_nvars == 5){
-  covmat_wp <- fnet_covmat_wp()
-  bp_var1 = covmat_wp[1,1]/ (1-input$net5_ICC1) - covmat_wp[1,1]
-  bp_var2 = covmat_wp[2,2]/ (1-input$net5_ICC2) - covmat_wp[2,2]
-  bp_var3 = covmat_wp[3,3]/ (1-input$net5_ICC3) - covmat_wp[3,3]
-  bp_var4 = covmat_wp[4,4]/ (1-input$net5_ICC4) - covmat_wp[4,4]
-  bp_var5 = covmat_wp[5,5]/ (1-input$net5_ICC5) - covmat_wp[5,5]
-  covmat_bp = fnetbcor()
+  covmat_wp <- fnet_covmat_wp
+  bp_var1 = covmat_wp[1,1]/ (1-input$net4_ICC1) - covmat_wp[1,1]
+  bp_var2 = covmat_wp[2,2]/ (1-input$net4_ICC2) - covmat_wp[2,2]
+  bp_var3 = covmat_wp[3,3]/ (1-input$net4_ICC3) - covmat_wp[3,3]
+  bp_var4 = covmat_wp[4,4]/ (1-input$net4_ICC4) - covmat_wp[4,4]
+  
+  covmat_bp = fnet_cormat_bp
   covmat_bp[,1] = covmat_bp[,1]*(sqrt(bp_var1))
   covmat_bp[,2] = covmat_bp[,2]*(sqrt(bp_var2))
   covmat_bp[,3] = covmat_bp[,3]*(sqrt(bp_var3))
   covmat_bp[,4] = covmat_bp[,4]*(sqrt(bp_var4))
-  covmat_bp[,5] = covmat_bp[,5]*(sqrt(bp_var5))
   covmat_bp[1,] = covmat_bp[1,]*(sqrt(bp_var1))
   covmat_bp[2,] = covmat_bp[2,]*(sqrt(bp_var2))
   covmat_bp[3,] = covmat_bp[3,]*(sqrt(bp_var3))
   covmat_bp[4,] = covmat_bp[4,]*(sqrt(bp_var4))
-  covmat_bp[5,] = covmat_bp[5,]*(sqrt(bp_var5))
   return(covmat_bp)
-  }
-  if(input$net_nvars == 3){
-    covmat_wp <- fnet_covmat_wp()
-    bp_var1 = covmat_wp[1,1]/ (1-input$net3_ICC1) - covmat_wp[1,1]
-    bp_var2 = covmat_wp[2,2]/ (1-input$net3_ICC2) - covmat_wp[2,2]
-    bp_var3 = covmat_wp[3,3]/ (1-input$net3_ICC3) - covmat_wp[3,3]
-    covmat_bp = fnetbcor()
-    covmat_bp[,1] = covmat_bp[,1]*(sqrt(bp_var1))
-    covmat_bp[,2] = covmat_bp[,2]*(sqrt(bp_var2))
-    covmat_bp[,3] = covmat_bp[,3]*(sqrt(bp_var3))
-    covmat_bp[1,] = covmat_bp[1,]*(sqrt(bp_var1))
-    covmat_bp[2,] = covmat_bp[2,]*(sqrt(bp_var2))
-    covmat_bp[3,] = covmat_bp[3,]*(sqrt(bp_var3))
-    return(covmat_bp)
-  }
- })
+})
 
 fnet_covmat_cross <- reactive({
-covmat_cross= fnet_covmat_bp() + fnet_covmat_wp()
+covmat_cross= fnet_covmat_bp() + fnet_covmat_wp
 return(covmat_cross)
 })
 
@@ -595,26 +416,13 @@ fnet_cormat_cross <- reactive({
   return(cormat_cross)
 })
 
-fnet_stH <- reactive({
-st_H<-fnetH()
-covmat_wp=fnet_covmat_wp()
-for (i in 1:fnetne()){
-st_H[i,]<-st_H[i,]/sqrt(covmat_wp[i,i])
-st_H[,i]<-st_H[,i]*sqrt(covmat_wp[i,i])
-}
-return(st_H)
-})
+
 
 ###partial correlations results##
 
 #precision matrices
-##WP
-fnet_partial_wp <- reactive({
-premat_wp <- solve(fnet_covmat_wp())
-partial_wp <- -cov2cor(premat_wp)
-diag(partial_wp) <- 1
-return(partial_wp)
-})
+## WP in non-reactive section
+
 ##BP
 fnet_partial_bp <- reactive({
 premat_bp <- solve(fnet_covmat_bp())
@@ -622,6 +430,7 @@ partial_bp <- -cov2cor(premat_bp)
 diag(partial_bp) <- 1
 return(partial_bp)
 })
+
 ##Cross
 fnet_partial_cross <- reactive({
 premat_cross <- solve(fnet_covmat_cross())
@@ -632,16 +441,16 @@ return(partial_cross)
 
 fnet_plot_w <- reactive({
   if(input$netcortype == "Pairwise"){  
-  return(fnet_cormat_wp())
+    return(fnet_cormat_wp)
   }
   if(input$netcortype == "Partial"){  
-    return(fnet_partial_wp())
+    return(fnet_partial_wp)
   }
 })
 
 fnet_plot_b <- reactive({
   if(input$netcortype == "Pairwise"){  
-    return(fnetbcor())
+    return(fnet_cormat_bp)
   }
   if(input$netcortype == "Partial"){  
     return(fnet_partial_bp())
@@ -661,17 +470,17 @@ fnet_plot_cross <- reactive({
 
  #Between plot
   output$plot_b <- renderPlot({
-    plot_b=plot(fsimdat_b(),pch=19, ylim=c(-3,3),xlim=c(-3,3),col=col_b, xlab="X between (standardized)", ylab="Y between (standardized)", main=paste("Between rho =", input$rho_b))
+    plot_b=plot(fsimdat_b(),pch=19, ylim=c(-3,3),xlim=c(-3,3),col=col_b, xlab="X between (standardized)", ylab="Y between (standardized)", main=paste("Between correlation =", input$rho_b))
   })
  
   #Within plot 
   output$plot_w <- renderPlot({
-    plot_w=plot(fsimdat_w(),pch=19, ylim=c(-3,3),xlim=c(-3,3), col=col_w, xlab="X within (standardized)", ylab="Y within (standardized)", main=paste("Within rho =", input$rho_w) )
+    plot_w=plot(fsimdat_w(),pch=19, ylim=c(-3,3),xlim=c(-3,3), col=col_w, xlab="X within (standardized)", ylab="Y within (standardized)", main=paste("Within correlation =", input$rho_w) )
   })
   
   #Cross-sectional plot
   output$plot_c <- renderPlot({
-    plot_c=plot(fsimdat_c(),pch=19, ylim=c(-3,3),xlim=c(-3,3),col=col_c[fcol_c_select()], xlab="X cross-sectional (standardized)", ylab="Y cross-sectional (standardized)", main=paste("Cross-sectional rho =", round(frho_c(),2)) )
+    plot_c=plot(fsimdat_c(),pch=19, ylim=c(-3,3),xlim=c(-3,3),col=col_c[fcol_c_select()], xlab="X cross-sectional (standardized)", ylab="Y cross-sectional (standardized)", main=paste("Cross-sectional \n correlation =", round(frho_c(),2)) )
   })
 
   
@@ -692,13 +501,13 @@ fnet_plot_cross <- reactive({
  
 ####netw#####  
   
- output$netstdreg_wp <- renderPlot({ qgraph(fnet_stH(),maximum=.9,fade=FALSE,layout="circle",vsize=12,edge.width=3.5,title="Within-Person Lagged Network \n Standardized Regression Coefficients",label.prop=1.2,posCol=c("red"),negCol=c("blue"),edge.labels=FALSE,edge.label.cex=3, negDashed=TRUE, mar=c(3,4,3,4)) 
+ output$netstdreg_wp <- renderPlot({ qgraph(fnet_stH,maximum=.9,fade=FALSE,layout="circle",vsize=12,edge.width=3.5,title="Within-Person Lagged Network \n Standardized Regression Coefficients",posCol=c("red"),negCol=c("blue"),labels=c("stress", "caffeine", "perform.", "sleep"), label.prop=0.8,edge.labels=FALSE,edge.label.cex=3, negDashed=TRUE, mar=c(5,5,5,5)) 
    })
-  output$netpw_wp<-  renderPlot({qgraph(fnet_plot_w(),maximum=.9,fade=FALSE,layout="circle",vsize=12,edge.width=3.5,title="Within-Person \n Contemporaneous\n Correlations",label.prop=1.2,posCol=c("red"),negCol=c("blue"),edge.labels=FALSE,edge.label.cex=3, negDashed=TRUE, mar=c(3,4,3,4)) 
+  output$netpw_wp<-  renderPlot({qgraph(fnet_plot_w(),maximum=.9,fade=FALSE,layout="circle",vsize=12,edge.width=3.5,title="Within-Person \n Contemporaneous\n Correlations",label.prop=.8,posCol=c("red"),negCol=c("blue"),edge.labels=FALSE,edge.label.cex=3, negDashed=TRUE, mar=c(3,4,3,4),labels=c("stress", "caffeine", "perform.", "sleep")) 
     })
-  output$netpw_bp<-  renderPlot({qgraph(fnet_plot_b(),maximum=.9,fade=FALSE,layout="circle",vsize=12,edge.width=3.5,title="Between-Person \n Correlations",label.prop=1.2,posCol=c("red"),negCol=c("blue"),edge.labels=FALSE,edge.label.cex=3, negDashed=TRUE, mar=c(3,4,3,4)) 
+  output$netpw_bp<-  renderPlot({qgraph(fnet_plot_b(),maximum=.9,fade=FALSE,layout="circle",vsize=12,edge.width=3.5,title="Between-Person \n Correlations",label.prop=.8,posCol=c("red"),negCol=c("blue"),edge.labels=FALSE,edge.label.cex=3, negDashed=TRUE, mar=c(3,4,3,4),labels=c("stress", "caffeine", "perform.", "sleep")) 
     })
-  output$netpw_c<-  renderPlot({qgraph(fnet_plot_cross(),maximum=.9,fade=FALSE,layout="circle",vsize=12,edge.width=3.5,title="Cross-sectional \n Correlations",label.prop=1.2,posCol=c("red"),negCol=c("blue"),edge.labels=FALSE,edge.label.cex=3, negDashed=TRUE, mar=c(3,4,3,4))
+  output$netpw_c<-  renderPlot({qgraph(fnet_plot_cross(),maximum=.9,fade=FALSE,layout="circle",vsize=12,edge.width=3.5,title="Cross-sectional \n Correlations",label.prop=.8,posCol=c("red"),negCol=c("blue"),edge.labels=FALSE,edge.label.cex=3, negDashed=TRUE, mar=c(3,4,3,4),labels=c("stress", "caffeine", "perform.", "sleep"))
     })
   
 

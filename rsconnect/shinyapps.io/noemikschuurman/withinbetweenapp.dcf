@@ -5,6 +5,10 @@ account: noemikschuurman
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 1351788
-bundleId: 2615324
+bundleId: 6494054
 url: https://noemikschuurman.shinyapps.io/withinbetweenapp/
-when: 1574675742.00404
+when: 1668005598.64678
+lastSyncTime: 1668005598.64678
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: app_multiplenetworkexamples.R|Info.html|Info_net.html|zomaar.txt|rommel

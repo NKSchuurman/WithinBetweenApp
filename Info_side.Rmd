@@ -1,0 +1,36 @@
+---
+title: "Info"
+output: html_fragment
+---
+### A Within/Between Problem Primer and App
+This Shiny app accompanies the in preparation manuscript "A "Within/Between Problem" Primer: *About the problem of (not) separating within-subject variance and between-subject variance in psychology*." by N. K. Schuurman (2022). 
+
+<!--The source code can be found on <a href="https://github.com/NKSchuurmanUU">GitHub</a>. -->
+
+#### Contact information
+If you have any questions or comments, please contact No&#233;mi K. Schuurman (N.K.Schuurman at uu.nl).
+
+#### Citing the App
+Schuurman, N. K. (2022). *A Within/Between Problem App* [Shiny application version 1.0]. https://noemikschuurman.shinyapps.io/withinbetweenapp/
+  
+```{latex eval = F}
+@Manual{,
+  title = {A Within/Between Problem App},
+  author = {N K Schuurman},
+  year = {2022},
+  note = {Shiny application version 1.0},
+  url = {https://noemikschuurman.shinyapps.io/withinbetweenapp/},
+}
+```
+
+#### Citing the accompanying Manuscript
+Schuurman, N. K. (2022). *A "Within/Between Problem" Primer: About the problem of (not) separating within-subject variance and between-subject variance in psychology.* Manuscript in preparation.
+
+```{latex eval = F}
+@Unpublished{,
+  title = {A Within/Between Problem Primer: About the problem of (not) separating within-subject variance and between-subject variance in psychology.},
+  author = {N K Schuurman},
+  year = {2022},
+  note={Manuscript in preparation.}
+  }
+```
