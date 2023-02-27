@@ -4,15 +4,50 @@ output: html_fragment
 ---
 
 ## About the App
-This app illustrates for three analyses what the consequences are if so-called within-person variance and between-person variance are not distinguished from each other during such an analysis. The three analyses can be found in separate tabs at the top of this app: "Pairwise Correlations", "Univariate Normal Densities", and "Cross-lagged Networks". 
+This app illustrates for three analyses what the consequences are if within-unit variance and between-unit variance are not distinguished from each other during such an analysis. The three analyses can be found in separate tabs at the top of this app: "Pairwise Correlations", "Univariate Normal Densities", and "Cross-lagged Networks". 
 
-For general info on these tabs/analyses, see below. For details on within-subject variance, between-subject variance, on what the within/between problem is exactly, and how this plays out in the three specific analyses, refer to the in preparation manuscript that accompanies this app: "A "Within/Between Problem" Primer: *About the problem of (not) separating within-subject variance and between-subject variance in psychology*" by N. K. Schuurman (2022).
+For general info on these tabs/analyses, see below. For the terms of usage and license, see below. For details on within-unit variance, between-unit variance, on what the within/between problem is exactly, and how this plays out in the three specific analyses, refer to the in preparation manuscript that accompanies this app: "A "Within/Between Problem" Primer: *About (not) separating within-person variance and between-person variance in psychology*" by N. K. Schuurman (2022). The pre-print of the manuscript is available at <a href="https://psyarxiv.com/7zgkx">psyarxiv</a>.
 
 ### Pairwise Correlations Tab
-This section of the app illustrates the "within/between problem" for Pearson correlations between two variables (labeled X and Y in the app). In the middle of the pairwise correlations page, you see three scatter plots depicting the pairwise correlations between variables X and Y, at respectively the between-subject level, the within-subject level, and for observations from a cross-sectional design where between-subject and within-subject variance have not been distinguished from each other. On the left of the plots, you'll find options that you can change - such as the value of the within-person correlation - that will change the resulting scatter plots. On the right of the plots, you will find some instructions on what the options and results mean (for more information/details, refer to the accompanying manuscript).
+This section of the app illustrates the "within/between problem" for Pearson correlations between two variables (labeled X and Y in the app). In the middle of the pairwise correlations page, you see three scatter plots depicting the pairwise correlations between variables X and Y, at respectively the between-person level, the within-person level, and for observations from a cross-sectional design where between-person and within-person variance have not been distinguished from each other. On the left of the plots, you'll find options that you can change - such as the value of the within-person correlation - that will change the resulting scatter plots. On the right of the plots, you will find some instructions on what the options and results mean (for more information/details, refer to the accompanying manuscript).
 
 ### Univariate Normal Densities Tab
-This section of the app illustrates the "within/between problem" for the density of a single (normally distributed) variable. In the middle of the Univariate Normal Densities page, you see three density plots for a single variable, at respectively its between-subject level, its within-subject level, and for observations from a cross-sectional design where between-subject and within-subject variance have not been distinguished from each other. On the left of the plots, you'll find options that you can change that will alter the resulting densities. On the right of the plots, you will find some instructions on what the options and results mean (for more information/details, refer to the accompanying manuscript).
+This section of the app illustrates the "within/between problem" for the density of a single (normally distributed) variable. In the middle of the Univariate Normal Densities page, you see three density plots for a single variable, at respectively its between-person level, its within-person level, and for observations from a cross-sectional design where between-person and within-person variance have not been distinguished from each other. On the left of the plots, you'll find options that you can change that will alter the resulting densities. On the right of the plots, you will find some instructions on what the options and results mean (for more information/details, refer to the accompanying manuscript).
 
 ### Cross-lagged Networks Tab
 This section of the app illustrates the "within/between problem" for a multivariate setting, where multiple variables affect each other over time, according to a so-called 'cross-lagged model'. This could be a cross-lagged panel model, a vector autoregressive model, or a dynamic network model. In the middle of the Cross-lagged Networks page, you see four network plots of four variables. The different networks represent the cross-lagged model, the within-level correlations, the between-level correlations, and the cross-sectional correlations respectively. On the left of the plots, you'll find options that you can change that will alter the resulting networks. On the right of the plots, you will find some instructions on what the options and results mean (for more information/details, refer to the accompanying manuscript).
+
+---
+
+##### Terms of Usage - Utrecht Unversity Shiny Server
+<font size="1">
+
+  1. Purpose of the service “utrecht-university.shinyapps.io” is to provide a digital place for trying out, evaluating and/or comparing methods developed by researchers of Utrecht University  for the scientific community worldwide. The app and its contents may not be preserved in such a way that it can be cited or can be referenced to.
+  2. The web application is provided ‘as is’ and ‘as available’ and is without any warranty. Your use of this web application is solely at your own risk.
+  3. By using this app you agree to be bound by the above terms.
+  
+</font> 
+
+---
+
+##### MIT License
+<font size="1">Copyright (c) 2019 No&#233;mi K. Schuurman.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+  
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</font> 
+

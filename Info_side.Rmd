@@ -3,15 +3,17 @@ title: "Info"
 output: html_fragment
 ---
 ### A Within/Between Problem Primer and App
-This Shiny app accompanies the in preparation manuscript "A "Within/Between Problem" Primer: *About the problem of (not) separating within-subject variance and between-subject variance in psychology*." by N. K. Schuurman (2022). 
+This Shiny app accompanies the in preparation manuscript "A "Within/Between Problem" Primer: *About (not) separating within-person variance and between-person variance in psychology*." by N. K. Schuurman (2023). 
 
-<!--The source code can be found on <a href="https://github.com/NKSchuurmanUU">GitHub</a>. -->
+The pre-print manuscript is available at <a href="https://psyarxiv.com/7zgkx">psyarxiv</a>.
+
+The source code for this app can be found at <a href="https://github.com/NKSchuurman/WithinBetweenApp">GitHub</a> and at the <a href="https://osf.io/j4rk3/">Open Science Framework</a>.
 
 #### Contact information
 If you have any questions or comments, please contact No&#233;mi K. Schuurman (N.K.Schuurman at uu.nl).
 
 #### Citing the App
-Schuurman, N. K. (2022). *A Within/Between Problem App* [Shiny application version 1.0]. https://noemikschuurman.shinyapps.io/withinbetweenapp/
+Schuurman, N. K. (2022). *A Within/Between Problem App* [Shiny application version 1.0]. https://osf.io/j4rk3/
   
 ```{latex eval = F}
 @Manual{,
@@ -19,18 +21,18 @@ Schuurman, N. K. (2022). *A Within/Between Problem App* [Shiny application versi
   author = {N K Schuurman},
   year = {2022},
   note = {Shiny application version 1.0},
-  url = {https://noemikschuurman.shinyapps.io/withinbetweenapp/},
+  url = {https://osf.io/j4rk3/},
 }
 ```
 
 #### Citing the accompanying Manuscript
-Schuurman, N. K. (2022). *A "Within/Between Problem" Primer: About the problem of (not) separating within-subject variance and between-subject variance in psychology.* Manuscript in preparation.
+Schuurman, N. K. (2023). *A "Within/Between Problem" Primer: About (not) separating within-person variance and between-person variance in psychology.* PsyArXiv. 
 
 ```{latex eval = F}
 @Unpublished{,
-  title = {A Within/Between Problem Primer: About the problem of (not) separating within-subject variance and between-subject variance in psychology.},
+  title = {A Within/Between Problem Primer: About (not) separating within-person variance and between-person variance in psychology.},
   author = {N K Schuurman},
-  year = {2022},
-  note={Manuscript in preparation.}
+  year = {2023},
+  note = {PsyArXiv}
   }
 ```

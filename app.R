@@ -17,8 +17,8 @@ ui <- fluidPage(
     
        radioButtons(inputId="ICCornot", label=NULL, choices=list("ICC", "Standard deviation"),inline=TRUE), 
     
-       sliderInput(inputId="rho_w", label="Within-subject correlation", min=-1, max=1, value=-0.5,step=.1),
-       sliderInput(inputId="rho_b", label="Between-subject correlation", min=-1, max=1, value=0.5,step=.1),
+       sliderInput(inputId="rho_w", label="Within-person correlation", min=-1, max=1, value=-0.5,step=.1),
+       sliderInput(inputId="rho_b", label="Between-person correlation", min=-1, max=1, value=0.5,step=.1),
     
         conditionalPanel(
          condition = "input.ICCornot == 'ICC'",
@@ -30,11 +30,11 @@ ui <- fluidPage(
        conditionalPanel(
          condition = "input.ICCornot == 'Standard deviation'",
           # Input: Between sds
-          sliderInput(inputId="sdX_b", label="Between-subject sd of X", min=0, max=10, value=1,step=.1),
-          sliderInput(inputId="sdY_b", label="Between-subject sd of Y", min=0, max=10, value=1,step=.1),
+          sliderInput(inputId="sdX_b", label="Between-person sd of X", min=0, max=10, value=1,step=.1),
+          sliderInput(inputId="sdY_b", label="Between-person sd of Y", min=0, max=10, value=1,step=.1),
          #Input: Within sds
-         sliderInput(inputId="sdX_w", label="Within-subject sd of X", min=0, max=10, value=1,step=.1),
-         sliderInput(inputId="sdY_w", label="Within-subject sd of Y", min=0, max=10, value=1,step=.1)
+         sliderInput(inputId="sdX_w", label="Within-person sd of X", min=0, max=10, value=1,step=.1),
+         sliderInput(inputId="sdY_w", label="Within-person sd of Y", min=0, max=10, value=1,step=.1)
         ),
    
        #Input: Plotting Options
@@ -84,8 +84,8 @@ ui <- fluidPage(
                         
                         conditionalPanel(
                           condition = "input.dist_ICCornot == 'Variance'",
-                          sliderInput(inputId="dist_var_w", label="Average Within-subject variance", min=0, max=10, value=1,step=.5),
-                          sliderInput(inputId="dist_var_b", label="Between-subject variance", min=0, max=10, value=5,step=.5)
+                          sliderInput(inputId="dist_var_w", label="Average Within-person variance", min=0, max=10, value=1,step=.5),
+                          sliderInput(inputId="dist_var_b", label="Between-person variance", min=0, max=10, value=5,step=.5)
                         )
                         
                        
@@ -166,8 +166,9 @@ ui <- fluidPage(
                          includeMarkdown("Info_side.Rmd"), width = 12)
               )
             )
-  )   
-  )
+  )  
+  
+ )
 )
 
 ################################################################

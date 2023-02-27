@@ -10,24 +10,24 @@ output: html_fragment
 - **Type of Correlations Pairwise:** Edges connecting two variables represent a simple correlation between those two variables. 
 - **Type of Correlations Partial:** Edges connecting two variables represent the correlation between those two variables, controlling for all other variables in the network. 
 
-- **ICC of variable** Change the intra-class correlation of the variable. The ICC is the the proportion of between-subject variance to the total variance of the variable. 
+- **ICC of variable** Change the intra-class correlation of the variable. The ICC is the the proportion of between-person variance to the total variance of the variable. 
 
 ## Results
 Four network representations of associations between four example variables: Experienced stress, caffeine intake, job performance, and sleep quality. Red solid edges indicate positive associations, blue dashed edges indicate negative associations. Wider edges indicate stronger associations.
 
-### Within-subject Lagged Network (top-left) 
-The standardized regression coefficients for the lagged associations between the four variables. Arrows curving into the same variable represent autoregressive relationships, arrows pointing from one variable to another represent standardized cross-lagged regression coefficients. We assume here that each person has the same within-subject network.
+### Within-person Lagged Network (top-left) 
+The standardized regression coefficients for the lagged associations between the four variables. Arrows curving into the same variable represent autoregressive relationships, arrows pointing from one variable to another represent standardized cross-lagged regression coefficients. We assume here that each person has the same within-person network.
 
 In this example, a person that has a high score for performance now, tends to have a low score for stress later; A person that has a high score for stress now, tends to have a higher performance score later. 
 
-### Within-subject Contemporaneous Network (top-right) 
-The concurrent correlations between the repeated measures of a subject for these variables. 
-We assume here that each person has the same within-subject network.
+### Within-person Contemporaneous Network (top-right) 
+The concurrent correlations between the repeated measures of a person for these variables. 
+We assume here that each person has the same within-person network.
 
 In this example, we see that when a person has a high score on stress, they tend to have a lower performance at the same occassion. 
 
-### Between-subject Network (bottom-left)
-Correlations between the means of different subjects for two variables. 
+### Between-person Network (bottom-left)
+Correlations between the means of different persons for two variables. 
 
 In this example, we see that people that have a relatively high mean for job performance compared to other people, tend to have a relatively high mean for stress compared to other people.
 

@@ -9,40 +9,40 @@ For general information on this shiny app, click the right-most tab 'Info' at th
 
 - **ICC or Standard deviation:** Choose to manipulate the intra-class correlations or standard deviations of variables X and Y (see below).
 
-- **Within-subject correlation:** Change the value of the within-subject correlation.
-- **Between-subject correlation:** Change the value of the between-subject correlation.
+- **Within-person correlation:** Change the value of the within-person correlation.
+- **Between-person correlation:** Change the value of the between-person correlation.
 - **N for plot:** Change the sample size for the scatter plots. Does not affect the value of the depicted correlations, as these are all population values.
 
 ***ICC option chosen:***
-- **ICC of X; ICC of Y:** Change the intra-class correlation of variable X or Y respectively. The ICC is the the proportion of between-subject variance to the total variance for that variable.
+- **ICC of X; ICC of Y:** Change the intra-class correlation of variable X or Y respectively. The ICC is the the proportion of between-person variance to the total variance for that variable.
 
 ***SD option chosen:***
-- **Within-subject sd of X; of Y; Between-subject sd of X, of Y:** Change the values of the standard deviations of either the within- or between-level variables for variable X or Y.
+- **Within-person sd of X; of Y; Between-person sd of X, of Y:** Change the values of the standard deviations of either the within- or between-level variables for variable X or Y.
 
 
 ## Results
 
-### Between-subject Correlation (top-left) 
-The between-subject correlation indicates whether a subject that has a relatively high/low mean on X compared to other subjects, also has a relatively high/low mean on Y compared to other subjects. 
+### Between-person Correlation (top-left) 
+The between-person correlation indicates whether a person that has a relatively high/low mean on X compared to other persons, also has a relatively high/low mean on Y compared to other persons. 
 
 At the top of the scatter plot the true value of the between correlation is displayed (chosen by the user).
 
-The data points in this plot are the the expected values for variables X and Y of different subjects. That is, if we were to track the scores of a subject over time for variables X and Y, then the two means of those scores (one for X and one for Y) are depicted as one datapoint in the scatter plot.
+The data points in this plot are the the expected values for variables X and Y of different persons. That is, if we were to track the scores of a person over time for variables X and Y, then the two means of those scores (one for X and one for Y) are depicted as one datapoint in the scatter plot.
 
-### Within-subject Correlation (top-right) 
-The within-level correlation indicates whether a subject that currently has a relatively high/low score for X compared to their average score, also tends to have a relatively high/low score for Y compared to their average score. We assume here for simplicity that the within-subject correlation is equal for all subjects.
+### Within-person Correlation (top-right) 
+The within-level correlation indicates whether a person that currently has a relatively high/low score for X compared to their average score, also tends to have a relatively high/low score for Y compared to their average score. We assume here for simplicity that the within-person correlation is equal for all persons.
 
 At the top of the scatter plot the true value of the within correlation is displayed (chosen by the user).
 
-The data points in this plot are the scores for X and Y of one subject at different points in time.
+The data points in this plot are the scores for X and Y of one person at different points in time.
 
 ### Cross-sectional Correlation (bottom)
-The cross-sectional correlation that would result given the specified within-subject and between-subject correlations and ICCs/standard deviations. 
+The cross-sectional correlation that would result given the specified within-person and between-person correlations and ICCs/standard deviations. 
 
-This correlation indicates, for one point in time, whether subjects that have a relatively high/low scores for X compared to other subjects, also tend to have a relatively high/low scores for Y compared to other subjects. 
+This correlation indicates, for one point in time, whether persons that have a relatively high/low scores for X compared to other persons, also tend to have a relatively high/low scores for Y compared to other persons. 
 
 At the top of the scatter plot the true value of the cross-sectional correlation is displayed (this is the population value, and hence is not impacted by sampling errors).
 
-The data points in the scatterplot (depicted in purple) are scores of different subjects - each subject has their own data point - for variables X and Y at one specific  time point in time (a cross-sectional design). Their purple color turns more towards red, or more towards blue, depending on whether the correlation is closer to the between or within correlation respectively.
+The data points in the scatter plot (depicted in purple) are scores of different persons - each person has their own data point - for variables X and Y at one specific time point (a cross-sectional design). Their purple color turns more towards red, or more towards blue, depending on whether the correlation is closer to the between or within correlation respectively.
 
 
